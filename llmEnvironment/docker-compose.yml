@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    container_name: LLM_DEMO_APP
+    command: >
+         sh -c "panel serve app/code/app.py --show --autoreload --port 8000"
+    ports: 
+      - 8000:8000
+    volumes:
+      - ../:/code
+    depends_on:
+      - ollama
+  
+  ollama:
+    container_name: ollama-server
+    image: ollama/ollama
+    volumes:
+       - ../ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    
