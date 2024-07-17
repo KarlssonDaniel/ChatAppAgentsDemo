@@ -1,3 +1,4 @@
 ollama/*
 app/docs/*
 *.pyc
+app/code/junk/*
